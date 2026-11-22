@@ -1,0 +1,1 @@
+{"name":"cafe-premium-site","version":"1.0.0","description":"Premium dark editorial cafe website with admin panel (zero dependencies)","main":"server.js","scripts":{"start":"node server.js"},"engines":{"node":">=16"}}

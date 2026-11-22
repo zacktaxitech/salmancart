@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cafe</title><meta name="theme-color" content="#0b0907">
+<script>
+/* Failsafes: if the main script is slow or fails, the page must stay visible and scrollable. */
+(function(d){d.documentElement.classList.add('js');
+setTimeout(function(){if(!window.__rv){d.documentElement.classList.remove('js')}},4500);
+setTimeout(function(){d.body&&d.body.classList.remove('is-loading')},4000);})(document);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css"></head>
+<body class="is-loading">
+<div id="preloader" class="preloader" aria-hidden="true"><div class="pl-inner">
+<svg class="pl-cup" viewBox="0 0 64 64"><defs><linearGradient id="g1" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#d6a54e"/><stop offset="1" stop-color="#f6e7c8"/></linearGradient></defs><path fill="url(#g1)" d="M10 22h38v14a14 14 0 0 1-14 14H24a14 14 0 0 1-14-14V22Zm38 4h4a6 6 0 0 1 0 12h-4v-3h4a3 3 0 0 0 0-6h-4v-3Z"/><path class="steam" d="M20 16c-3-3 3-5 0-9M30 16c-3-3 3-5 0-9M40 16c-3-3 3-5 0-9" stroke="#f6e7c8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+<div class="pl-count"><span id="plNum">0</span><small>%</small></div><div class="pl-line"><i id="plLine"></i></div><div class="pl-name" data-bind="brand"></div></div></div>
+<div class="progress"><i id="prog"></i></div>
+<header class="topbar" id="topbar"><a class="brand" href="#top"><svg viewBox="0 0 64 64"><path fill="url(#g1)" d="M10 22h38v14a14 14 0 0 1-14 14H24a14 14 0 0 1-14-14V22Zm38 4h4a6 6 0 0 1 0 12h-4v-3h4a3 3 0 0 0 0-6h-4v-3Z"/></svg><span data-bind="brand"></span></a>
+<nav class="nav"><a href="#story">Story</a><a href="#shop">Shop</a><a href="#gallery">Gallery</a><a href="#reserve" data-reserve>Reserve</a><a href="#contact">Contact</a></nav>
+<a class="btn gold sm" href="#shop">Shop now</a><button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 7a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="cart-count" id="cartCount" data-n="0">0</span></button></header>
+
+<section class="hero" id="top"><div class="stage" id="stage">
+<div class="glow"></div><div class="rings"><i></i><i></i></div>
+<div id="particles"></div>
+<div class="word-wrap" id="words"></div>
+<div class="dish-area" id="dishes"><div class="dish-shadow"></div></div>
+<div class="badge"><svg viewBox="0 0 120 120"><defs><path id="bc" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#bc" id="badgeText" textLength="286" lengthAdjust="spacing"></textPath></text></svg><span>✦</span></div>
+<div class="info-host" id="infos"></div>
+<nav class="table"><h2>The Table</h2><ol id="tableList"></ol></nav>
+<div class="scroll-hint"><span id="heroHint"></span><div class="bar"><i id="heroBar"></i></div></div>
+</div></section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+<section class="section" id="story"><div class="wrap about-grid">
+<div class="about-img" data-r="left"><div class="orbit"></div><img id="storyImg" src="" alt=""></div>
+<div><p class="eyebrow" data-r="right" style="--d:0" data-bind="kicker"></p>
+<h2 class="h2" data-r="right" style="--d:120"><span data-bind="aboutTitleA"></span> <i data-bind="aboutTitleB"></i></h2>
+<p class="lead" data-r="right" style="--d:240" id="about"></p>
+<div class="stats" data-stagger><div class="stat" data-r="up"><b data-k="stat1Value">0</b><span data-bind="stat1Label"></span></div><div class="stat" data-r="up"><b data-k="stat2Value">0</b><span data-bind="stat2Label"></span></div><div class="stat" data-r="up"><b data-k="stat3Value">0</b><span data-bind="stat3Label"></span></div><div class="stat" data-r="up"><b data-k="stat4Value">0</b><span data-bind="stat4Label"></span></div></div>
+</div></div></section>
+
+<section class="section menu" id="shop"><div class="wrap">
+<p class="eyebrow" data-r="left">Shop</p><h2 class="h2" data-r="left" style="--d:120"><span data-bind="shopTitleA"></span> <i data-bind="shopTitleB"></i></h2>
+<div class="tabs" id="tabs" data-stagger></div><div class="menu-grid" id="items"></div></div></section>
+
+<section class="section" id="gallery"><div class="wrap">
+<p class="eyebrow" data-r="up">Gallery</p><h2 class="h2" data-r="up" style="--d:120"><span data-bind="galleryTitleA"></span> <i data-bind="galleryTitleB"></i></h2>
+<div class="gal-grid"><figure class="gal" data-r="left"><img id="g1" src="" alt=""></figure><figure class="gal" data-r="zoom" style="--d:150"><img id="g2" src="" alt=""></figure><figure class="gal" data-r="right" style="--d:300"><img id="g3" src="" alt=""></figure></div></div></section>
+
+<section class="section" id="reserve" hidden><div class="wrap reserve-grid">
+<div><p class="eyebrow" data-r="left">Reservations</p><h2 class="h2" data-r="left" style="--d:120">Save your <i>seat.</i></h2>
+<p class="lead" data-r="left" style="--d:240">Tell us when and how many. We will confirm your table shortly.</p>
+<div class="hours card" data-r="left" style="--d:360"><h3 class="serif" style="font-family:var(--display);font-size:24px">Hours</h3><p data-bind="hours"></p><p class="muted" data-bind="address"></p><p class="muted" data-bind="phone"></p></div></div>
+<form id="rf" class="card form" data-r="right" data-stagger><label data-r="right">Your name<input name="name" required></label>
+<div class="row2"><label data-r="right">Phone<input name="phone"></label><label data-r="right">Guests<input name="guests" type="number" min="1" max="20" value="2"></label></div>
+<div class="row2"><label data-r="right">Date<input name="date" type="date" required></label><label data-r="right">Time<input name="time" type="time" required></label></div>
+<button class="btn gold wide" data-r="up">Request table</button><p class="form-msg" id="rm"></p></form></div></section>
+
+<section class="section" id="contact"><div class="wrap reserve-grid">
+<div><p class="eyebrow" data-r="left">Say hello</p><h2 class="h2" data-r="left" style="--d:120">Write <i>to us.</i></h2><div class="hours card" data-r="left" style="--d:260" id="contactCard"><p data-bind="address"></p><p data-bind="hours"></p><p data-bind="phone"></p><p data-bind="contactEmail"></p></div></div>
+<form id="cf" class="card form" data-r="right" data-stagger><label data-r="right">Name<input name="name" required></label><label data-r="right">Email<input name="email" type="email"></label><label data-r="right">Message<textarea name="message" rows="4" required></textarea></label><button class="btn gold wide" data-r="up">Send</button><p class="form-msg" id="cm"></p></form></div></section>
+
+<footer class="footer"><div class="wrap foot-bottom"><span data-bind="brand"></span><span>Made with care</span><a href="/admin">Admin</a></div></footer>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Cart"><div class="drawer-head"><h2 id="drTitle">Your cart</h2><button class="icon-btn" id="drClose" aria-label="Close">✕</button></div>
+<div class="drawer-body" id="drBody"></div><div class="drawer-foot" id="drFoot"></div></aside>
+<div class="toast" id="toast"></div>
+<script src="/site.js"></script></body></html>
