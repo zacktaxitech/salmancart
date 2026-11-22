@@ -1,0 +1,64 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<div class="container listing-layout">
+  <aside class="filters card">
+    <h3>Filters</h3>
+    <form action="/products" method="get" id="filter-form">
+      <% if (query.q) { %><input type="hidden" name="q" value="<%= query.q %>"><% } %>
+      <div class="filter-group">
+        <label class="filter-label">Category</label>
+        <select name="category" onchange="this.form.submit()">
+          <option value="">All categories</option>
+          <% categories.forEach(function(c){ %>
+            <option value="<%= c.slug %>" <%= query.category === c.slug ? 'selected' : '' %>><%= c.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Price range</label>
+        <div class="price-inputs">
+          <input type="number" name="min" placeholder="Min" min="0" value="<%= query.min %>">
+          <span>-</span>
+          <input type="number" name="max" placeholder="Max" min="0" value="<%= query.max %>">
+        </div>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Sort by</label>
+        <select name="sort" onchange="this.form.submit()">
+          <option value="" <%= !query.sort ? 'selected' : '' %>>Relevance</option>
+          <option value="price-asc" <%= query.sort === 'price-asc' ? 'selected' : '' %>>Price: low to high</option>
+          <option value="price-desc" <%= query.sort === 'price-desc' ? 'selected' : '' %>>Price: high to low</option>
+          <option value="rating" <%= query.sort === 'rating' ? 'selected' : '' %>>Top rated</option>
+          <option value="discount" <%= query.sort === 'discount' ? 'selected' : '' %>>Biggest discount</option>
+        </select>
+      </div>
+      <label class="check-row">
+        <input type="checkbox" name="inStock" value="1" <%= query.inStock === '1' ? 'checked' : '' %> onchange="this.form.submit()">
+        <span>In stock only</span>
+      </label>
+      <button class="btn btn-primary btn-block" type="submit">Apply</button>
+      <a class="btn btn-ghost btn-block" href="/products">Clear all</a>
+    </form>
+  </aside>
+
+  <section class="listing-main">
+    <div class="section-head">
+      <h2><%= title %></h2>
+      <span class="muted"><%= products.length %> result<%= products.length === 1 ? '' : 's' %></span>
+    </div>
+    <% if (products.length === 0) { %>
+      <div class="card empty-state">
+        <h3>No products found</h3>
+        <p class="muted">Try a different search term or clear the filters.</p>
+        <a class="btn btn-primary" href="/products">Browse all products</a>
+      </div>
+    <% } else { %>
+      <div class="product-grid">
+        <% products.forEach(function(p){ %><%- include('../partials/product-card', {p}) %><% }) %>
+      </div>
+    <% } %>
+  </section>
+</div>
+
+<%- include('../partials/footer') %>

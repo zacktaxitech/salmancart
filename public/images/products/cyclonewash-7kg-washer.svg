@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 330">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f08f45"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+<linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b45309"/><stop offset="1" stop-color="#862500"/></linearGradient>
+</defs>
+<rect width="400" height="330" rx="24" fill="url(#bg)"/>
+<circle cx="330" cy="52" r="60" fill="#b45309" opacity=".12"/>
+<circle cx="58" cy="282" r="80" fill="#b45309" opacity=".10"/>
+<circle cx="200" cy="150" r="86" fill="url(#fg)"/>
+<circle cx="200" cy="150" r="86" fill="none" stroke="#ffffff" stroke-width="3" opacity=".5"/>
+<g transform="translate(170,120) scale(2.5)"><rect x="4" y="3" width="16" height="18" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1.8"/><circle cx="12" cy="13" r="4.5" fill="none" stroke="#ffffff" stroke-width="1.8"/><circle cx="7.5" cy="6.5" r="1" fill="#ffffff"/></g>
+<text x="200" y="272" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="800" fill="#862500">C</text>
+<text x="200" y="298" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="600" fill="#b45309" opacity=".8">CycloneWash</text>
+</svg>

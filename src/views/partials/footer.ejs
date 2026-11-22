@@ -1,0 +1,32 @@
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="brand footer-brand"><img src="/images/logo.svg" alt="" class="brand-mark"><span class="brand-name">Salman<em>Cart</em></span></div>
+      <p class="muted">Your one-stop shop for mobiles, electronics, fashion, appliances and more. Sample catalog - replace with your real products from the admin panel.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <a href="/products">All products</a>
+      <a href="/products?sort=discount">Top deals</a>
+      <a href="/cart">My cart</a>
+      <a href="/orders">My orders</a>
+    </div>
+    <div>
+      <h4>Categories</h4>
+      <% categories.slice(0, 6).forEach(function(c){ %>
+        <a href="/products?category=<%= c.slug %>"><%= c.name %></a>
+      <% }) %>
+    </div>
+    <div>
+      <h4>Store</h4>
+      <a href="/login">Login</a>
+      <a href="/register">Create account</a>
+      <a href="/admin">Admin panel</a>
+    </div>
+  </div>
+  <div class="container footer-base muted">SalmanCart demo storefront. Prices in Indian Rupees. Cash on Delivery at checkout.</div>
+</footer>
+<script src="/js/app.js"></script>
+</body>
+</html>

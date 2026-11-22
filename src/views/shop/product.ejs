@@ -1,0 +1,68 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<div class="container">
+  <nav class="crumbs muted">
+    <a href="/">Home</a> / <a href="/products?category=<%= product.category %>"><%= product.category %></a> / <%= product.name %>
+  </nav>
+  <div class="product-detail card">
+    <div class="detail-media" style="--accent:<%= product.color || '#4f46e5' %>">
+      <img src="<%= product.image %>" alt="<%= product.name %>">
+      <% if (pct(product) > 0) { %><span class="deal-tag big"><%= pct(product) %>% off</span><% } %>
+    </div>
+    <div class="detail-info">
+      <span class="brand-label"><%= product.brand %></span>
+      <h1><%= product.name %></h1>
+      <div class="rating-row">
+        <span class="rating-badge"><%= product.rating %> ★</span>
+        <span class="muted"><%= Number(product.ratingCount).toLocaleString('en-IN') %> ratings</span>
+      </div>
+      <div class="price-row big">
+        <span class="price"><%= money(product.price) %></span>
+        <% if (product.mrp > product.price) { %>
+          <span class="mrp"><%= money(product.mrp) %></span>
+          <span class="save-tag">Save <%= money(product.mrp - product.price) %></span>
+        <% } %>
+      </div>
+      <p class="muted"><%= product.description %></p>
+      <% if (product.highlights && product.highlights.length) { %>
+        <ul class="highlights">
+          <% product.highlights.forEach(function(h){ %><li><%= h %></li><% }) %>
+        </ul>
+      <% } %>
+      <div class="stock-line <%= product.stock > 0 ? 'in' : 'out' %>">
+        <% if (product.stock > 10) { %>In stock
+        <% } else if (product.stock > 0) { %>Hurry, only <%= product.stock %> left!
+        <% } else { %>Currently out of stock<% } %>
+      </div>
+      <div class="detail-actions">
+        <form action="/cart/add" method="post" class="add-cart-form inline" data-product-id="<%= product.id %>">
+          <input type="hidden" name="productId" value="<%= product.id %>">
+          <div class="qty-stepper">
+            <button type="button" data-step="-1" aria-label="Decrease">-</button>
+            <input type="number" name="qty" value="1" min="1" max="<%= Math.max(1, product.stock) %>">
+            <button type="button" data-step="1" aria-label="Increase">+</button>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit" <%= product.stock <= 0 ? 'disabled' : '' %>>Add to Cart</button>
+        </form>
+        <a class="btn btn-ghost btn-lg" href="/cart">Go to Cart</a>
+      </div>
+      <div class="delivery-note muted">Free delivery on orders over Rs. 499 · Cash on Delivery available · 7-day easy returns</div>
+    </div>
+  </div>
+
+  <% if (related.length) { %>
+    <section class="section">
+      <div class="section-head"><h2>Similar products</h2></div>
+      <div class="carousel" data-carousel>
+        <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+        <div class="carousel-track">
+          <% related.forEach(function(p){ %><%- include('../partials/product-card', {p}) %><% }) %>
+        </div>
+        <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+      </div>
+    </section>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

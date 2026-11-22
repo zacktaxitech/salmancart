@@ -1,0 +1,40 @@
+<%- include('../partials/admin-head') %>
+
+<% if (error) { %><div class="toast toast-warn static"><%= error %></div><% } %>
+
+<div class="card form-card">
+  <form action="<%= product ? '/admin/products/' + product.id : '/admin/products' %>" method="post" enctype="multipart/form-data" class="form-grid">
+    <div class="field span-2"><label>Product name *</label><input name="name" required value="<%= product ? product.name : '' %>"></div>
+    <div class="field"><label>Brand</label><input name="brand" value="<%= product ? product.brand : '' %>"></div>
+    <div class="field"><label>Category *</label>
+      <select name="category" required>
+        <option value="">Choose...</option>
+        <% categories.forEach(function(c){ %>
+          <option value="<%= c.slug %>" <%= product && product.category === c.slug ? 'selected' : '' %>><%= c.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="field"><label>Selling price (Rs.) *</label><input type="number" name="price" min="1" required value="<%= product ? product.price : '' %>"></div>
+    <div class="field"><label>MRP (Rs.)</label><input type="number" name="mrp" min="0" value="<%= product ? product.mrp : '' %>"></div>
+    <div class="field"><label>Stock</label><input type="number" name="stock" min="0" value="<%= product ? product.stock : 0 %>"></div>
+    <div class="field"><label>Rating (0-5)</label><input type="number" name="rating" step="0.1" min="0" max="5" value="<%= product ? product.rating : 4.2 %>"></div>
+    <div class="field"><label>Rating count</label><input type="number" name="ratingCount" min="0" value="<%= product ? product.ratingCount : 0 %>"></div>
+    <div class="field"><label>Accent color</label><input type="color" name="color" value="<%= product ? (product.color || '#4f46e5') : '#4f46e5' %>"></div>
+    <div class="field span-2"><label>Description</label><textarea name="description" rows="3"><%= product ? product.description : '' %></textarea></div>
+    <div class="field span-2"><label>Highlights (one per line)</label><textarea name="highlights" rows="4"><%= product && product.highlights ? product.highlights.join('\n') : '' %></textarea></div>
+    <div class="field span-2">
+      <label>Image</label>
+      <% if (product && product.image) { %><img class="table-thumb big" src="<%= product.image %>" alt=""><% } %>
+      <input type="file" name="imageFile" accept="image/*">
+      <span class="muted small">Upload a photo, or leave empty to keep an auto-generated placeholder.</span>
+    </div>
+    <label class="check-row"><input type="checkbox" name="featured" <%= product && product.featured ? 'checked' : '' %>><span>Featured on homepage</span></label>
+    <label class="check-row"><input type="checkbox" name="deal" <%= product && product.deal ? 'checked' : '' %>><span>Show in Deals of the day</span></label>
+    <div class="span-2 form-actions">
+      <button class="btn btn-primary btn-lg" type="submit"><%= product ? 'Save changes' : 'Create product' %></button>
+      <a class="btn btn-ghost" href="/admin/products">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/admin-foot') %>

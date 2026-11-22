@@ -1,1 +1,26 @@
-{"name":"cafe-premium-site","version":"1.0.0","description":"Premium dark editorial cafe website with admin panel (zero dependencies)","main":"server.js","scripts":{"start":"node server.js"},"engines":{"node":">=16"}}
+{
+  "name": "salmancart",
+  "version": "1.0.0",
+  "description": "SalmanCart - full-featured e-commerce store with admin panel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node scripts/seed.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "multer": "^2.5.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1",
+    "supertest": "^7.0.0"
+  }
+}

@@ -1,0 +1,47 @@
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/" aria-label="SalmanCart home">
+      <img src="/images/logo.svg" alt="" class="brand-mark">
+      <span class="brand-name">Salman<em>Cart</em></span>
+    </a>
+    <form class="search-bar" action="/products" method="get" role="search">
+      <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" name="q" placeholder="Search for products, brands and more" value="<%= typeof query !== 'undefined' ? query.q : '' %>" aria-label="Search products">
+      <button type="submit">Search</button>
+    </form>
+    <nav class="header-actions">
+      <% if (user) { %>
+        <div class="account-menu">
+          <button class="account-btn" aria-haspopup="true">
+            <span class="avatar"><%= user.name.charAt(0).toUpperCase() %></span>
+            <span class="account-name"><%= user.name.split(' ')[0] %></span>
+          </button>
+          <div class="account-drop">
+            <% if (user.role === 'admin') { %><a href="/admin">Admin Panel</a><% } %>
+            <a href="/orders">My Orders</a>
+            <a href="/logout">Logout</a>
+          </div>
+        </div>
+      <% } else { %>
+        <a class="btn btn-light" href="/login">Login</a>
+      <% } %>
+      <a class="cart-link" href="/cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 3h2l2.6 12.4a1 1 0 0 0 1 .6h8.7a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        <span>Cart</span>
+        <% if (cartCount > 0) { %><span class="cart-badge"><%= cartCount %></span><% } %>
+      </a>
+    </nav>
+  </div>
+  <nav class="category-strip">
+    <div class="container strip-row">
+      <a href="/products" class="strip-item">All</a>
+      <% categories.forEach(function(c){ %>
+        <a href="/products?category=<%= c.slug %>" class="strip-item"><%= c.name %></a>
+      <% }) %>
+    </div>
+  </nav>
+</header>
+<% if (flash) { %>
+  <div class="toast toast-<%= flash.type %>" id="flash-toast"><%= flash.text %></div>
+<% } %>
+<main class="page">

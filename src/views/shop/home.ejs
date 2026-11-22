@@ -1,0 +1,76 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="hero container">
+  <div class="hero-copy">
+    <span class="hero-chip">Grand Opening Deals</span>
+    <h1>Everything you love,<br>delivered to your door.</h1>
+    <p>Shop mobiles, electronics, fashion, appliances and more at prices that make you smile. Free delivery on orders over Rs. 499.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-lg" href="/products">Shop now</a>
+      <a class="btn btn-ghost btn-lg" href="/products?sort=discount">Today's deals</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    <img src="/images/hero.svg" alt="">
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-head"><h2>Shop by category</h2></div>
+  <div class="category-grid">
+    <% categories.forEach(function(c){ %>
+      <a class="category-tile" href="/products?category=<%= c.slug %>" style="--accent:<%= c.accent %>">
+        <span class="tile-icon"><img src="/images/cat-<%= c.icon %>.svg" alt=""></span>
+        <span class="tile-name"><%= c.name %></span>
+        <span class="tile-tag muted"><%= c.tagline %></span>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-head">
+    <h2>Deals of the day</h2>
+    <a class="link" href="/products?sort=discount">View all</a>
+  </div>
+  <div class="carousel" data-carousel>
+    <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+    <div class="carousel-track">
+      <% deals.forEach(function(p){ %><%- include('../partials/product-card', {p}) %><% }) %>
+    </div>
+    <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-head">
+    <h2>Featured picks</h2>
+    <a class="link" href="/products">View all</a>
+  </div>
+  <div class="product-grid">
+    <% featured.forEach(function(p){ %><%- include('../partials/product-card', {p}) %><% }) %>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="promo-band">
+    <div>
+      <h3>Sell smarter with the built-in admin panel</h3>
+      <p class="muted">Manage products, categories, orders, customers and inventory from one clean dashboard.</p>
+    </div>
+    <a class="btn btn-light" href="/admin">Open admin</a>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-head"><h2>New arrivals</h2></div>
+  <div class="product-grid">
+    <% newest.forEach(function(p){ %><%- include('../partials/product-card', {p}) %><% }) %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

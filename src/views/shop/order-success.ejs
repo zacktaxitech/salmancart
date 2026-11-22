@@ -1,0 +1,25 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<div class="container narrow">
+  <div class="card empty-state success-state">
+    <div class="success-tick">&#10003;</div>
+    <h2>Order placed!</h2>
+    <p class="muted">Order <strong><%= order.number %></strong> is confirmed. Pay <%= money(order.total) %> in cash when it arrives.</p>
+    <div class="order-mini">
+      <% order.items.forEach(function(it){ %>
+        <div class="summary-item">
+          <img src="<%= it.image %>" alt="">
+          <span class="summary-item-name"><%= it.name %> <span class="muted">x <%= it.qty %></span></span>
+          <span><%= money(it.price * it.qty) %></span>
+        </div>
+      <% }) %>
+    </div>
+    <div class="hero-cta center">
+      <a class="btn btn-primary" href="/orders">Track my orders</a>
+      <a class="btn btn-ghost" href="/products">Continue shopping</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,33 @@
+<%- include('../partials/admin-head') %>
+
+<div class="pill-row">
+  <a class="pill <%= !activeStatus ? 'active' : '' %>" href="/admin/orders">All</a>
+  <% orderStatuses.forEach(function(s){ %>
+    <a class="pill <%= activeStatus === s ? 'active' : '' %>" href="/admin/orders?status=<%= encodeURIComponent(s) %>"><%= s %></a>
+  <% }) %>
+</div>
+
+<div class="card">
+  <% if (orders.length === 0) { %>
+    <p class="muted">No orders<%= activeStatus ? ' with status "' + activeStatus + '"' : '' %> yet.</p>
+  <% } else { %>
+    <table class="table">
+      <thead><tr><th>Order</th><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <% orders.forEach(function(o){ %>
+          <tr>
+            <td><a class="link" href="/admin/orders/<%= o.id %>"><%= o.number %></a></td>
+            <td><%= new Date(o.createdAt).toLocaleDateString('en-IN', {day:'numeric', month:'short'}) %></td>
+            <td><%= o.customer.name %><br><span class="muted small"><%= o.customer.city %></span></td>
+            <td><%= o.items.reduce((s, i) => s + i.qty, 0) %></td>
+            <td><%= money(o.total) %></td>
+            <td><span class="status-pill status-<%= o.status.toLowerCase().replace(/ /g,'-') %>"><%= o.status %></span></td>
+            <td><a class="link" href="/admin/orders/<%= o.id %>">Manage</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/admin-foot') %>

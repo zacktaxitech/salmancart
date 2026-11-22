@@ -1,0 +1,39 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<div class="container">
+  <div class="section-head"><h2>My Orders</h2></div>
+  <% if (orders.length === 0) { %>
+    <div class="card empty-state">
+      <h3>No orders yet</h3>
+      <p class="muted">When you place an order it will appear here with live status updates.</p>
+      <a class="btn btn-primary" href="/products">Start shopping</a>
+    </div>
+  <% } else { %>
+    <div class="orders-list">
+      <% orders.forEach(function(o){ %>
+        <div class="card order-card">
+          <div class="order-head">
+            <div><strong><%= o.number %></strong> <span class="muted">· <%= new Date(o.createdAt).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'}) %></span></div>
+            <span class="status-pill status-<%= o.status.toLowerCase().replace(/ /g,'-') %>"><%= o.status %></span>
+          </div>
+          <div class="order-mini">
+            <% o.items.forEach(function(it){ %>
+              <div class="summary-item">
+                <img src="<%= it.image %>" alt="">
+                <span class="summary-item-name"><%= it.name %> <span class="muted">x <%= it.qty %></span></span>
+                <span><%= money(it.price * it.qty) %></span>
+              </div>
+            <% }) %>
+          </div>
+          <div class="order-foot">
+            <span class="muted"><%= o.payment %> · <%= o.customer.city %></span>
+            <strong>Total: <%= money(o.total) %></strong>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

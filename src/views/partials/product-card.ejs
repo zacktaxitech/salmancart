@@ -1,0 +1,24 @@
+<div class="product-card">
+  <a href="/product/<%= p.slug %>" class="product-media" style="--accent:<%= p.color || '#4f46e5' %>">
+    <img src="<%= p.image %>" alt="<%= p.name %>" loading="lazy">
+    <% if (pct(p) > 0) { %><span class="deal-tag"><%= pct(p) %>% off</span><% } %>
+    <% if (p.stock <= 0) { %><span class="oos-tag">Out of stock</span><% } %>
+  </a>
+  <div class="product-info">
+    <a class="product-name" href="/product/<%= p.slug %>"><%= p.name %></a>
+    <div class="rating-row">
+      <span class="rating-badge"><%= p.rating %> ★</span>
+      <span class="muted">(<%= Number(p.ratingCount).toLocaleString('en-IN') %>)</span>
+    </div>
+    <div class="price-row">
+      <span class="price"><%= money(p.price) %></span>
+      <% if (p.mrp > p.price) { %><span class="mrp"><%= money(p.mrp) %></span><% } %>
+    </div>
+    <form action="/cart/add" method="post" class="add-cart-form" data-product-id="<%= p.id %>">
+      <input type="hidden" name="productId" value="<%= p.id %>">
+      <button class="btn btn-primary btn-block" type="submit" <%= p.stock <= 0 ? 'disabled' : '' %>>
+        <%= p.stock <= 0 ? 'Out of stock' : 'Add to Cart' %>
+      </button>
+    </form>
+  </div>
+</div>

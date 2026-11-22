@@ -1,0 +1,30 @@
+<%- include('../partials/admin-head') %>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Name</th><th>Email</th><th>Login via</th><th>Role</th><th>Joined</th><th></th></tr></thead>
+    <tbody>
+      <% users.forEach(function(u){ %>
+        <tr>
+          <td><strong><%= u.name %></strong></td>
+          <td><%= u.email || '-' %></td>
+          <td><span class="mini-tag"><%= u.provider || 'local' %></span></td>
+          <td><span class="mini-tag <%= u.role === 'admin' ? 'deal' : '' %>"><%= u.role %></span></td>
+          <td><%= u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-IN', {day:'numeric', month:'short'}) : '-' %></td>
+          <td class="row-actions">
+            <% if (u.id !== adminUser.id) { %>
+              <form action="/admin/users/<%= u.id %>/role" method="post">
+                <button class="link" type="submit">Make <%= u.role === 'admin' ? 'customer' : 'admin' %></button>
+              </form>
+              <form action="/admin/users/<%= u.id %>/delete" method="post" onsubmit="return confirm('Delete this user?')">
+                <button class="link danger" type="submit">Delete</button>
+              </form>
+            <% } else { %><span class="muted small">you</span><% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/admin-foot') %>

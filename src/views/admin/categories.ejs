@@ -1,0 +1,43 @@
+<%- include('../partials/admin-head') %>
+
+<% if (error) { %><div class="toast toast-warn static"><%= error %></div><% } %>
+
+<div class="admin-cols">
+  <section class="card">
+    <h3>Add category</h3>
+    <form action="/admin/categories" method="post" class="form-grid">
+      <div class="field span-2"><label>Name *</label><input name="name" required></div>
+      <div class="field span-2"><label>Tagline</label><input name="tagline"></div>
+      <div class="field"><label>Accent color</label><input type="color" name="accent" value="#4f46e5"></div>
+      <div class="field align-end"><button class="btn btn-primary" type="submit">Add</button></div>
+    </form>
+  </section>
+
+  <section class="card">
+    <h3>Existing categories</h3>
+    <table class="table">
+      <thead><tr><th>Name</th><th>Tagline</th><th>Color</th><th></th></tr></thead>
+      <tbody>
+        <% categories.forEach(function(c){ %>
+          <tr>
+            <td>
+              <form action="/admin/categories/<%= c.id %>" method="post" class="inline-edit">
+                <input name="name" value="<%= c.name %>">
+            </td>
+            <td><input name="tagline" value="<%= c.tagline || '' %>"></td>
+            <td><input type="color" name="accent" value="<%= c.accent || '#4f46e5' %>"></td>
+            <td class="row-actions">
+                <button class="link" type="submit">Save</button>
+              </form>
+              <form action="/admin/categories/<%= c.id %>/delete" method="post" onsubmit="return confirm('Delete category <%= c.name.replace(/'/g, '') %>?')">
+                <button class="link danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<%- include('../partials/admin-foot') %>

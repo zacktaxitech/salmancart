@@ -1,0 +1,53 @@
+<%- include('../partials/admin-head') %>
+
+<div class="stat-grid">
+  <div class="stat-card"><span class="stat-num"><%= stats.products %></span><span class="muted">Products</span></div>
+  <div class="stat-card"><span class="stat-num"><%= stats.categories %></span><span class="muted">Categories</span></div>
+  <div class="stat-card"><span class="stat-num"><%= stats.orders %></span><span class="muted">Orders</span></div>
+  <div class="stat-card"><span class="stat-num"><%= stats.customers %></span><span class="muted">Customers</span></div>
+  <div class="stat-card"><span class="stat-num"><%= money(stats.revenue) %></span><span class="muted">Revenue</span></div>
+</div>
+
+<div class="admin-cols">
+  <section class="card">
+    <div class="section-head"><h3>Recent orders</h3><a class="link" href="/admin/orders">All orders</a></div>
+    <% if (recentOrders.length === 0) { %>
+      <p class="muted">No orders yet. They will appear here as customers check out.</p>
+    <% } else { %>
+      <table class="table">
+        <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody>
+          <% recentOrders.forEach(function(o){ %>
+            <tr>
+              <td><a class="link" href="/admin/orders/<%= o.id %>"><%= o.number %></a></td>
+              <td><%= o.customer.name %></td>
+              <td><%= money(o.total) %></td>
+              <td><span class="status-pill status-<%= o.status.toLowerCase().replace(/ /g,'-') %>"><%= o.status %></span></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </section>
+
+  <section class="card">
+    <div class="section-head"><h3>Low stock</h3><a class="link" href="/admin/inventory">Manage inventory</a></div>
+    <% if (lowStock.length === 0) { %>
+      <p class="muted">All products have healthy stock.</p>
+    <% } else { %>
+      <table class="table">
+        <thead><tr><th>Product</th><th>Stock</th></tr></thead>
+        <tbody>
+          <% lowStock.slice(0, 8).forEach(function(p){ %>
+            <tr>
+              <td><%= p.name %></td>
+              <td><span class="stock-dot <%= p.stock === 0 ? 'out' : 'low' %>"></span><%= p.stock %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </section>
+</div>
+
+<%- include('../partials/admin-foot') %>

@@ -1,0 +1,26 @@
+<%- include('../partials/admin-head') %>
+
+<div class="card">
+  <p class="muted">Sorted lowest stock first. Update quantities inline.</p>
+  <table class="table">
+    <thead><tr><th></th><th>Product</th><th>Price</th><th>Stock</th><th></th></tr></thead>
+    <tbody>
+      <% products.forEach(function(p){ %>
+        <tr>
+          <td><img class="table-thumb" src="<%= p.image %>" alt=""></td>
+          <td><strong><%= p.name %></strong><br><span class="muted small"><%= p.category %></span></td>
+          <td><%= money(p.price) %></td>
+          <td><span class="stock-dot <%= p.stock === 0 ? 'out' : (p.stock <= 10 ? 'low' : 'ok') %>"></span><%= p.stock %></td>
+          <td>
+            <form action="/admin/inventory/<%= p.id %>" method="post" class="inline-edit">
+              <input type="number" name="stock" min="0" value="<%= p.stock %>">
+              <button class="link" type="submit">Update</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/admin-foot') %>
